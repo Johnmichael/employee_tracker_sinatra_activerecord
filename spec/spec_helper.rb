@@ -3,6 +3,7 @@ require("pg")
 require("sinatra/activerecord")
 require("division")
 require("employee")
+require("project")
 
 RSpec.configure do |config|
   config.after(:each) do
@@ -10,6 +11,9 @@ RSpec.configure do |config|
       task.destroy()
     end
     Employee.all().each() do |task|
+      task.destroy()
+    end
+    Project.all().each() do |task|
       task.destroy()
     end
   end
