@@ -46,6 +46,14 @@ end
 get("/employee/:id") do
   @employee = Employee.find(params.fetch("id").to_i())
   @division = Division.all()
+  @project = Project.all()
+  erb(:employee_info)
+end
+
+patch('/update_emp/:id') do
+  @employee = Employee.find(params.fetch("id").to_i())
+  name = params.fetch('name')
+  @employee.update ({:name => name})
   erb(:employee_info)
 end
 
