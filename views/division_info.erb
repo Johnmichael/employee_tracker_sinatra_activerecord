@@ -1,0 +1,37 @@
+<div class="jumbotron">
+  <h1><%= @division.title() %></h1>
+</div>
+
+<h3>Select all employees you would like to add to this division:</h3>
+
+<% if @employee.any?() %>
+  <form action="/divisions/<%= @division.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <% @employee.each() do |employee| %>
+      <% if employee.division_id != @division.id %>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="employee_ids[]" value="<%= employee.id() %>"><%= employee.name() %>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+
+    <button type="submit">Add employees</button>
+  </form>
+<% end %>
+
+<% if @division.employees().any?() %>
+
+  <h3>Here are all the employees in this division:</h3>
+
+  <ul>
+    <% @division.employees().each() do |employee| %>
+      <li><%= employee.name() %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no employees yet!</p>
+<% end %>
+
+<a href="/hr">Return to HR Main Page</a>

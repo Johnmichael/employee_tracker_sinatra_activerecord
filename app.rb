@@ -37,9 +37,25 @@ post('/employee') do
   erb(:hr)
 end
 
-get('/division/:id') do
-  title = params.fetch('title')
+get("/division/:id") do
+  @division = Division.find(params.fetch("id").to_i())
   @employee = Employee.all()
+  erb(:division_info)
+end
 
+get("/employee/:id") do
+  @employee = Employee.find(params.fetch("id").to_i())
+  @division = Division.all()
+  erb(:employee_info)
+end
+
+patch("/divisions/:id") do
+  division_id = params.fetch("id").to_i()
+  @division = Division.find(division_id)
+  employee_ids = params.fetch("employee_ids")
+  employee_ids.each do |employee_id|
+    Employee.find(employee_id).update({:division_id => division_id})
+  end
+  @employee = Employee.all()
   erb(:division_info)
 end
