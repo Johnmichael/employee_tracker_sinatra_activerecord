@@ -1,0 +1,50 @@
+<div class="jumbotron">
+  <h1>HR Management</h1>
+</div><br>
+
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Add Division</h2>
+    <form class="form-group" action="/division" method="post">
+      <label for="title"></label>
+      <input type="text" name="title" placeholder="Division Title"><br><br>
+
+      <button type="submit" class="btn btn-success" name="button">Add Division</button>
+    </form><br>
+
+    <h2>Add Employee</h2>
+    <form class="form-group" action="/employee" method="post">
+      <label for="name"></label>
+      <input type="text" name="name" placeholder="Employee Name"><br><br>
+
+      <button type="submit" class="btn btn-success" name="button">Add Employee</button>
+    </form>
+  </div>
+
+  <div class="col-sm-8">
+
+    <h2>Here are all your Divisions:</h2>
+    <% if @division.any?() %>
+    <p>Click on an division to see information about them and to assign them to different book:</p>
+    <ul>
+      <% @division.each do |division| %>
+        <li><a href="/division/<%= division.id() %>"><%= division.title() %></a></li>
+      <% end %>
+    </ul>
+    <% else %>
+      <p>There are no divisions added yet!</p>
+    <% end %><br><br><br><br>
+
+    <h2>Here are all your Employees:</h2>
+    <% if @employee.any?() %>
+    <p>Click on an employee to see information about them and to assign them to different book:</p>
+    <ul>
+      <% @employee.each do |employee| %>
+        <li><a href="/employee/<%= employee.id() %>"><%= employee.name() %></a></li>
+      <% end %>
+    </ul>
+    <% else %>
+      <p>There are no employees added yet!</p>
+    <% end %>
+  </div>
+</div>
